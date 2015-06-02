@@ -1,6 +1,6 @@
 <?php
 // add the namespace
-namespace Weblab;
+namespace Weblab\Pipelinedeals;
 
 /**
  * The Pipelinesdeals wrapper class wrapping arround the company entity from
@@ -9,7 +9,7 @@ namespace Weblab;
  *
  * @author Weblab.nl - Thomas Marinissen
  */
-class Company extends \Weblab\Entity {
+class Company extends \Weblab\Pipelinedeals\Entity {
 
     /**
      * The entity name
