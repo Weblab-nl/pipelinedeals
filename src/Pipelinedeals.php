@@ -1,6 +1,6 @@
 <?php
 // add the namespace
-namespace Weblab\Pipelinedeals;
+namespace Weblab;
 
 /**
  * Class to access the Pipelinedeals Api
@@ -36,14 +36,7 @@ class Pipelinedeals {
      * @var int
      */
     private $totalCalls = 0;
-    
-    /**
-     * The only possible instance of the pipelinedeals api class
-     * 
-     * @var \Weblab\Pipelinedeals\Pipelinedeals
-     */
-    private static $instance = null;
-    
+
     /**
      * Constructor
      *

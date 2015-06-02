@@ -13,7 +13,7 @@ abstract class Entity {
     /**
      * The Pipelinedeals API instance
      * 
-     * @var \Weblab\Pipelinedeals\Pipelinedeals
+     * @var \Weblab\Pipelinedeals
      */
     protected $pipelinedealsApi;
     
@@ -27,10 +27,10 @@ abstract class Entity {
     /**
      * Constructor
      *
-     * @param   \Weblab\Pipelinedeals\Pipelinedeals             The pipelinedeals api instance
+     * @param   \Weblab\Pipelinedeals                           The pipelinedeals api instance
      * @param   string|null                                     The entity identifier
      */
-    public function __construct(\Weblab\Pipelinedeals\Pipelinedeals $pipelinedeals, $id = null) {
+    public function __construct(\Weblab\Pipelinedeals $pipelinedeals, $id = null) {
         // get access to the pipelinedeals API
         $this->pipelinedealsApi = $pipelinedeals;
         
@@ -105,13 +105,13 @@ abstract class Entity {
     /**
      * Static method to get the pipelinedeals entity
      *
-     * @param   \Weblab\Pipelinedeals\Pipelinedeals             The pipelinedeals api instance
+     * @param   \Weblab\Pipelinedeals                           The pipelinedeals api instance
      * @param   int|null                                        The pipelinedeals entity identifier
      * @return  \Weblab\Pipelinedeals\Entity                    The fetched entity from pipelinedeals
      *
      * @throws \Exception
      */
-    public static function get(\Weblab\Pipelinedeals\Pipelinedeals $pipelinedeals, $id = null) {
+    public static function get(\Weblab\Pipelinedeals $pipelinedeals, $id = null) {
         // get the name of the called class
         $className = get_called_class();
         
@@ -155,7 +155,7 @@ abstract class Entity {
     /**
      * Get the instance of the pipelinedeals api
      *
-     * @return \Weblab\Pipelinedeals\Pipelinedeals              The instance of the Pipelinedeals api
+     * @return \Weblab\Pipelinedeals                The instance of the Pipelinedeals api
      */
     public function api() {
         return $this->pipelinedealsApi;
