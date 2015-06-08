@@ -100,13 +100,12 @@ class Pipelinedeals {
 
         // execute the curl request
         $response = curl_exec($curl);
-        
-        // get the header that was sent out
-        //$headerSent = curl_getinfo($curl, CURLINFO_HEADER_OUT);
-        //var_dump($headerSent); die;
-        
+
         // get the response code
         $responseCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        // close the curl session
+        curl_close($curl);
         
         // if the response code is an error code, return null
         if ($responseCode != 200) {
