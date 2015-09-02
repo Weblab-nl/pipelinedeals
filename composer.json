@@ -1,7 +1,7 @@
 {
   "name": "weblabnl/pipelinedeals",
   "type": "library",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "API client library to fetch, post and update entities to the Pipelinedeals CRM system.",
   "license": "Apache-2.0",
   "authors": [

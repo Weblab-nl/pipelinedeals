@@ -3,17 +3,22 @@
 namespace Weblab\Pipelinedeals;
 
 /**
- * The Pipelinesdeals wrapper class wrapping arround calendar entries from
+ * The Pipelinesdeals wrapper class wrapping arround a calendar entry from
  * Pipelinesdeals, making it possible to perform rest operations on the calendar
- * entity
+ * entry entity
  * 
  * @author Weblab.nl - Thomas Marinissen
  */
-class CalendarEntity extends \Weblab\Pipelinedeals\Entity {
+class CalendarEntry extends \Weblab\Pipelinedeals\Entity {
     
     /**
      * The entity name
      */
     const NAME = 'calendar_entries';
+
+    /**
+     * The name of a single entity
+     */
+    const ENTITY_NAME = 'calendar_entry';
 
 }
