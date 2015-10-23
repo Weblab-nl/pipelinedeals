@@ -3,7 +3,7 @@
 namespace Weblab\Pipelinedeals;
 
 /**
- * The Pipelinesdeals wrapper class wrapping arround a calendar entry from
+ * The Pipelinesdeals wrapper class wrapping around a calendar entry from
  * Pipelinesdeals, making it possible to perform rest operations on the calendar
  * entry entity
  * 

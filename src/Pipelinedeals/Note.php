@@ -3,8 +3,8 @@
 namespace Weblab\Pipelinedeals;
 
 /**
- * The Pipelinesdeals wrapper class wrapping arround the person (people) entity from
- * Pipelinesdeals, making it possible to perform rest operations on the person
+ * The Pipelinesdeals wrapper class wrapping around the note entity from
+ * Pipelinesdeals, making it possible to perform rest operations on the note
  * entity
  * 
  * @author Weblab.nl - Thomas Marinissen

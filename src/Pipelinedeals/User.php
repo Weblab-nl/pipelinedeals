@@ -3,7 +3,7 @@
 namespace Weblab\Pipelinedeals;
 
 /**
- * The Pipelinesdeals wrapper class wrapping arround the user entity from
+ * The Pipelinesdeals wrapper class wrapping around the user entity from
  * Pipelinesdeals, making it possible to perform rest operations on the user
  * entity
  * 
