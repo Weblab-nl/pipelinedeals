@@ -9,43 +9,100 @@ namespace Weblab\Pipelinedeals;
  * @author Weblab.nl - Thomas Marinissen
  */
 abstract class Entity {
-    
-    /**
-     * The Pipelinedeals API instance
-     * 
-     * @var \Weblab\Pipelinedeals
-     */
-    protected $pipelinedealsApi;
-    
+
     /**
      * The entity information
      * 
      * @var \stdClass
      */
     protected $entity;
+
+    /**
+     * Get the connection to pipelinedeals
+     *
+     * @return \Weblab\Pipelinedeals                The pipelinedeals instance / connection
+     *
+     * @throws \Exception                           Thrown whenever there is no active pipelinedeals connection set
+     */
+    public static function connection() {
+        return \Weblab\Pipelinedeals::connection();
+    }
+
+    /**
+     * Find a pipelinedeals entity
+     *
+     * @param   int                                             The pipelinedeal identifier of the
+     * @return  null|\Weblab\Pipelinedeals\Entity               The entity from pipelinedeals
+     */
+    public static function find($id) {
+        // get the data from pipelinedeals for the given identifier
+        $entityData = self::connection()->call(static::NAME . '/' . $id . '.json');
+        
+        // if there is no proper entity data, return null
+        if (is_null($entityData)) {
+            return null;
+        }
+        
+        // get the name of the called class
+        $className = get_called_class();
+        
+        // create the new entity object
+        return new $className($entityData);
+    }
+
+    /**
+     * Find a pipelinedeals entity or fail
+     *
+     * @param   int                                         The pipelinedeal identifier of the pipelinedeals entity
+     * @return  \Weblab\Pipelinedeals\Entity                The entity from pipelinedeals
+     *
+     * @throws  \Exception                                  Thrown if the entity can not be found
+     */
+    public static function findOrFail($id) {
+        // get the entity
+        $object = self::find($id);
+
+        // if there is an entity, return it
+        if (!is_null($object)) {
+            return $object;
+        }
+
+        // throw an error
+        throw new \Exception('Not possible to request the ' . static::NAME);
+    }
+
+    /**
+     * Find a pipelinedeals entity by pipelinedeals identifier, if not found create a new entity
+     *
+     * @param   int                                         The pipelinedeal identifier of the pipelinedeals entity
+     * @return  \Weblab\Pipelinedeals\Entity                The entity from pipelinedeals
+     */
+    public static function findOrNew($id) {
+        // find the object
+        $object = self::find($id);
+
+        // if there is no object, create a new object
+        if (is_null($object)) {
+            // get the name of the called class
+            $className = get_called_class();
+
+            // create a new entity object
+            $object = new $className();
+        }
+
+        // done, return the entity object
+        return $object;
+    }
     
     /**
      * Constructor
      *
-     * @param   \Weblab\Pipelinedeals                           The pipelinedeals api instance
-     * @param   string|null                                     The entity identifier
+     * @param  \stdClass|null                       The entity data
      */
-    public function __construct(\Weblab\Pipelinedeals $pipelinedeals, $id = null) {
-        // get access to the pipelinedeals API
-        $this->pipelinedealsApi = $pipelinedeals;
-        
-        // set the entity base
-        $entity = new \stdClass();
-
-        // if a entity id was given, get the entity
-        if (!is_null($id)) {
-            // get the entity from the pipeline deals api
-            $entity = $this->pipelinedealsApi->call(static::NAME . '/' . $id . '.json');
-        }
-        
-        // if there is no valid entity, throw an exception
+    public function __construct(\stdClass $entity = null) {
+        // make sure that the entity is always a stdClass object
         if (is_null($entity)) {
-            throw new \Exception('Not possible to request the ' . static::NAME);
+            $entity = new \stdClass();
         }
         
         // set the entity
@@ -55,28 +112,46 @@ abstract class Entity {
     /**
      * Magic getter method
      * 
-     * @param   string                              The name of the getter
-     * @return  \Weblab\Pipelinedeals\Entity        The instance of this, to make chaining possible
+     * @param   string                  The name of the getter
+     * @return  mixed                   The value found, null for no value
      */
     public function __get($name) {
         // if there is no value in the entity for the given name, return null
-        if (!isset($this->entity->$name)) {
+        if (!isset($this->entity->{$name})) {
             return null;
         }
         
         // return the value for the given name
-        return $this->entity->$name;
+        return $this->entity->{$name};
     }
     
     /**
      * Magic setter method
      * 
-     * @param   string                  The name of the variable to set
-     * @param   mixed                   The value of the variable to set
+     * @param   string                              The name of the variable to set
+     * @param   mixed                               The value of the variable to set
+     * @return  \Weblab\Pipelinedeals\Entity        The instance of this, to make chaining possible
      */
     public function __set($name, $value) {
         // set the entity value for the given name
-        $this->entity->$name = $value;
+        $this->entity->{$name} = $value;
+
+        // done, return the instance of this, to make chaining possible
+        return $this;
+    }
+
+    /**
+     * Set the entity based on the standard class
+     *
+     * @param   \stdClass                           The entity information to set
+     * @return  \Weblab\Pipelinedeals\Entity        The instance of this, to make chaining possible
+     */
+    public function fill(\stdClass $entity) {
+        // set the entity
+        $this->entity = $entity;
+
+        // return the instance of this, to make chaining possible
+        return $this;
     }
     
     /**
@@ -105,25 +180,11 @@ abstract class Entity {
     /**
      * Static method to get the pipelinedeals entity
      *
-     * @param   \Weblab\Pipelinedeals                           The pipelinedeals api instance
      * @param   int|null                                        The pipelinedeals entity identifier
      * @return  \Weblab\Pipelinedeals\Entity                    The fetched entity from pipelinedeals
-     *
-     * @throws \Exception
      */
-    public static function get(\Weblab\Pipelinedeals $pipelinedeals, $id = null) {
-        // get the name of the called class
-        $className = get_called_class();
-        
-        // try getting the entity for the given id from the Pipelinedeals API
-        try {
-            $entity = new $className($pipelinedeals, $id);
-        } catch (\Exception $e) {
-            return null;
-        }
-        
-        // done, evertying is all right, return the pipelinedeals entity
-        return $entity;
+    public static function get($id = null) {
+        return self::findOrNew($id);
     }
     
     /**
@@ -135,10 +196,10 @@ abstract class Entity {
      */
     public function save() {
         // format the entity
-        $entity = array(static::ENTITY_NAME => $this->entity);
+        $entity = [static::ENTITY_NAME => $this->entity];
         
         // save the entity
-        $result = $this->pipelinedealsApi->call($this->savePath(), $this->saveType(), $entity);
+        $result = self::connection()->call($this->savePath(), $this->saveType(), $entity);
         
         // if the result is null, throw a new exception
         if (is_null($result)) {
@@ -150,15 +211,6 @@ abstract class Entity {
         
         // done, return the result
         return $result;
-    }
-
-    /**
-     * Get the instance of the pipelinedeals api
-     *
-     * @return \Weblab\Pipelinedeals                The instance of the Pipelinedeals api
-     */
-    public function api() {
-        return $this->pipelinedealsApi;
     }
     
     /**
@@ -176,7 +228,7 @@ abstract class Entity {
         }
         
         // remove the entity
-        $result = $this->pipelinedealsApi->call(static::NAME . '/' . $this->entity->id . '.json', 'DELETE');
+        $result = self::connection()->call(static::NAME . '/' . $this->entity->id . '.json', 'DELETE');
         
         // if the result is null, throw a new exception
         if (is_null($result)) {
