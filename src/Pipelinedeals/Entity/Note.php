@@ -1,6 +1,6 @@
 <?php
 // add the namespace
-namespace Weblab\Pipelinedeals;
+namespace Weblab\Pipelinedeals\Entity;
 
 /**
  * The Pipelinesdeals wrapper class wrapping around the note entity from
@@ -20,5 +20,14 @@ class Note extends \Weblab\Pipelinedeals\Entity {
      * The name of a single entity
      */
     const ENTITY_NAME = 'note';
+
+    /**
+     * The condition fields for the entity
+     *
+     * @var array
+     */
+    protected static $conditionFields = [
+        'activity_modified' => 'datetime range'
+    ];
 
 }

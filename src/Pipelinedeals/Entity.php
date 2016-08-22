@@ -18,6 +18,25 @@ abstract class Entity {
     protected $entity;
 
     /**
+     * The condition fields for the entity
+     *
+     * @var array
+     */
+    protected static $conditionFields = [];
+
+    /**
+     * Handle dynamic static method calls into the method.
+     *
+     * @param  string               Name of the called method
+     * @param  array                The parameters
+     * @return mixed
+     */
+    public static function __callStatic($method, $parameters) {
+        // call the static method on a new instance of the current called class and return the result
+        return call_user_func_array([new static, $method], $parameters);
+    }
+
+    /**
      * Get the connection to pipelinedeals
      *
      * @return \Weblab\Pipelinedeals                The pipelinedeals instance / connection
@@ -44,7 +63,7 @@ abstract class Entity {
         }
         
         // get the name of the called class
-        $className = get_called_class();
+        $className = static::class;
         
         // create the new entity object
         return new $className($entityData);
@@ -84,7 +103,7 @@ abstract class Entity {
         // if there is no object, create a new object
         if (is_null($object)) {
             // get the name of the called class
-            $className = get_called_class();
+            $className = static::class;
 
             // create a new entity object
             $object = new $className();
@@ -92,6 +111,24 @@ abstract class Entity {
 
         // done, return the entity object
         return $object;
+    }
+
+    /**
+     * Create a query builder object
+     *
+     * @return \Weblab\Pipelinedeals\Query          The query builder instance
+     */
+    public static function query() {
+        return (new static)->newQuery();
+    }
+
+    /**
+     * Get the available condition fields for the entity
+     *
+     * @return array                The available condition fields
+     */
+    public static function conditionFields() {
+        return static::$conditionFields;
     }
     
     /**
@@ -108,7 +145,7 @@ abstract class Entity {
         // set the entity
         $this->entity = $entity;
     }
-    
+
     /**
      * Magic getter method
      * 
@@ -138,6 +175,31 @@ abstract class Entity {
 
         // done, return the instance of this, to make chaining possible
         return $this;
+    }
+
+    /**
+     * Handle dynamic method calls into the model.
+     *
+     * @param  string               Name of the called method
+     * @param  array                The parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters) {
+        // get the query builder
+        $query = $this->newQuery();
+
+        // call the method on the query builder instance and return the result
+        return call_user_func_array([$query, $method], $parameters);
+    }
+
+
+    /**
+     * create a new query object
+     *
+     * @return \Weblab\Pipelinedeals\Query              The query builder object
+     */
+    public function newQuery() {
+        return new \Weblab\Pipelinedeals\Query(static::class, static::NAME);
     }
 
     /**
@@ -176,17 +238,7 @@ abstract class Entity {
         // done, return the instance of this, to make chaining possible
         return $this;
     }
-    
-    /**
-     * Static method to get the pipelinedeals entity
-     *
-     * @param   int|null                                        The pipelinedeals entity identifier
-     * @return  \Weblab\Pipelinedeals\Entity                    The fetched entity from pipelinedeals
-     */
-    public static function get($id = null) {
-        return self::findOrNew($id);
-    }
-    
+
     /**
      * Save the entity
      * 

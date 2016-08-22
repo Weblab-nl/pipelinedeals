@@ -14,7 +14,7 @@ class Pipelinedeals {
      *
      * @var string
      */
-    private $token;
+    private $key;
 
     /**
      * The base url to pipelinedeals
@@ -31,19 +31,6 @@ class Pipelinedeals {
     protected static $connection = null;
 
     /**
-     * Constructor
-     *
-     * @param   string                  The key needed to connect to pipelinedeals
-     */
-    public function __construct($token) {
-        // set the access token
-        $this->token = $token;
-
-        // set the connection
-        self::$connection = $this;
-    }
-
-    /**
      * Get the connection
      *
      * @return  \Weblab\Pipelinedeals               The pipelinedeals instance
@@ -57,6 +44,19 @@ class Pipelinedeals {
 
         // return the connection
         return self::$connection;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param   string                  The key needed to connect to pipelinedeals
+     */
+    public function __construct($key) {
+        // set the access token
+        $this->key = $key;
+
+        // set the connection
+        self::$connection = $this;
     }
 
     /**
@@ -121,46 +121,6 @@ class Pipelinedeals {
     }
 
     /**
-     * Get the company for a given pipelinedeals id
-     *
-     * @param   int                                           The Pipelinedeals company identifier
-     * @return  \Weblab\Pipelinedeals\Company|null            The Pipelinedeals company, null if there was no company for the given id
-     */
-    public static function company($id) {
-        return \Weblab\Pipelinedeals\Company::find($id);
-    }
-
-    /**
-     * Get the deal for a given pipelinedeals id
-     *
-     * @param   int                                          The Pipelinedeals deal identifier
-     * @return  \Weblab\Pipelinedeals\Person|null            The Pipelinedeals deal, null if there was no deal for the given id
-     */
-    public static function deal($id) {
-        return \Weblab\Pipelinedeals\Deal::find($id);
-    }
-
-    /**
-     * Get the person for a given pipelinedeals id
-     *
-     * @param   int                                          The Pipelinedeals person identifier
-     * @return  \Weblab\Pipelinedeals\Person|null            The Pipelinedeals person, null if there was no person for the given id
-     */
-    public static function person($id) {
-        return \Weblab\Pipelinedeals\Person::find($id);
-    }
-
-    /**
-     * Get the user (account) for a given pipelinedeals id
-     *
-     * @param   int                                          The Pipelinedeals user (account) identifier
-     * @return  \Weblab\Pipelinedeals\Person|null            The Pipelinedeals person, null if there was no person for the given id
-     */
-    public static function user($id) {
-        return \Weblab\Pipelinedeals\User::find($id);
-    }
-
-    /**
      * Helper function to create the entire call url, based on a given path
      *
      * @param   string                  The path for the url
@@ -182,7 +142,7 @@ class Pipelinedeals {
         }
 
         // add the api key
-        $query['api_key'] = $this->token;
+        $query['api_key'] = $this->key;
 
         // create the entire url and return it
         return $this->baseUrl . $path . '?' . http_build_query($query);
