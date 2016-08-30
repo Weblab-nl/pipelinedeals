@@ -30,6 +30,13 @@ class Collection implements \Iterator, \Countable, \ArrayAccess {
     protected $pagination = null;
 
     /**
+     * The totals information
+     *
+     * @var \stdClass|null
+     */
+    protected $totals = null;
+
+    /**
      * The current key
      *
      * @var int
@@ -72,6 +79,11 @@ class Collection implements \Iterator, \Countable, \ArrayAccess {
         // if the pagination is set, add the pagination parameters
         if (isset($result->pagination)) {
             $this->pagination = $result->pagination;
+        }
+
+        // if the totals are set, add the totals parameters
+        if (isset($result->totals)) {
+            $this->totals = $result->totals;
         }
     }
 
@@ -224,6 +236,15 @@ class Collection implements \Iterator, \Countable, \ArrayAccess {
         return $this->query()
             ->page($currentPageNumber + 1)
             ->get();
+    }
+
+    /**
+     * Get the totals for the collection (if given)
+     *
+     * @return null|\stdClass                   The totals for the collection
+     */
+    public function totals() {
+        return $this->totals;
     }
 
     /**

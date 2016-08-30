@@ -52,6 +52,13 @@ class Query {
     protected $limit = null;
 
     /**
+     * Whether the totals should be included in the query or not
+     *
+     * @var boolean
+     */
+    protected $totals = false;
+
+    /**
      * Get the connection to pipelinedeals
      *
      * @return \Weblab\Pipelinedeals                The pipelinedeals instance / connection
@@ -228,7 +235,7 @@ class Query {
      * @param   int                                     The number of results to get
      * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
      */
-    public function take(int $value) {
+    public function take(int $value = 200) {
         // make sure the limit has a maximum value of 200;
         if ($value > 200) {
             $value = 200;
@@ -247,7 +254,7 @@ class Query {
      * @param   int                                     The number of results to get
      * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
      */
-    public function limit(int $value) {
+    public function limit(int $value = 200) {
         return $this->take($value);
     }
 
@@ -260,6 +267,19 @@ class Query {
     public function page(int $value) {
         // set the offset value
         $this->offset = $value;
+
+        // done, return the instance of this to make chaining possible
+        return $this;
+    }
+
+    /**
+     * Set whether the totals should be included in the query
+     *
+     * @param   boolean                                 Whether the totals should be included in the query or not
+     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     */
+    public function totals(bool $totals = false) {
+        $this->totals = $totals;
 
         // done, return the instance of this to make chaining possible
         return $this;
@@ -288,6 +308,11 @@ class Query {
         // add the offset to the path if set
         if (!is_null($this->offset)) {
             $path[] = 'page=' . $this->offset;
+        }
+
+        // add the totals are set to be true, add it to the path
+        if ($this->totals) {
+            $path[] = 'totals=' . $this->totals;
         }
 
         // if specific attributes are requested, add the attributes to the path

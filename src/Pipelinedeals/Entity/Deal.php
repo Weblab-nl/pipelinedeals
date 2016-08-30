@@ -48,4 +48,14 @@ class Deal extends \Weblab\Pipelinedeals\Entity {
         'person_company_name'   => 'integer',
     ];
 
+    /**
+     * Create a query builder object
+     *
+     * @return \Weblab\Pipelinedeals\Query          The query builder instance
+     */
+    public static function query() {
+        return (new static)->newQuery()
+            ->totals(true);
+    }
+
 }
