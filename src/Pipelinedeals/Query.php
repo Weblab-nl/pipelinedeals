@@ -312,7 +312,7 @@ class Query {
 
         // add the totals are set to be true, add it to the path
         if ($this->totals) {
-            $path[] = 'totals=' . $this->totals;
+            $path[] = 'totals=' . ($this->totals ? 'true' : 'false') . '';
         }
 
         // if specific attributes are requested, add the attributes to the path
