@@ -6,16 +6,16 @@ namespace Weblab\Pipelinedeals\Entity;
  * The Pipelinesdeals wrapper class wrapping around the deal entity from
  * Pipelinesdeals, making it possible to perform rest operations on the deal
  * entity
- * 
+ *
  * @author Weblab.nl - Thomas Marinissen
  */
 class Deal extends \Weblab\Pipelinedeals\Entity {
-    
+
     /**
      * The entity name
      */
     const NAME = 'deals';
-    
+
     /**
      * The name of a single entity
      */
@@ -56,6 +56,19 @@ class Deal extends \Weblab\Pipelinedeals\Entity {
     public static function query() {
         return (new static)->newQuery()
             ->totals(true);
+    }
+
+    /**
+     * Create a new query object
+     *
+     * @return \Weblab\Pipelinedeals\Query              The query builder object
+     */
+    public function newQuery() {
+        // create the query builder object
+        $query = new \Weblab\Pipelinedeals\Query(static::class, static::NAME);
+
+        // done, return the query object, including the totals
+        return $query->totals(true);
     }
 
 }
