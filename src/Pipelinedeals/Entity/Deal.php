@@ -49,16 +49,6 @@ class Deal extends \Weblab\Pipelinedeals\Entity {
     ];
 
     /**
-     * Create a query builder object
-     *
-     * @return \Weblab\Pipelinedeals\Query          The query builder instance
-     */
-    public static function query() {
-        return (new static)->newQuery()
-            ->totals(true);
-    }
-
-    /**
      * Create a new query object
      *
      * @return \Weblab\Pipelinedeals\Query              The query builder object
