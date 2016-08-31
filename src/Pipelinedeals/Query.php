@@ -199,7 +199,7 @@ class Query {
 
         // if there is a second value set, add the upper bound condition
         if (!is_null($value2)) {
-            $condition .= $attribute . '[to_date]=' . $value2;
+            $condition .= '&' . $attribute . '[to_date]=' . $value2;
         }
 
         // add the condition
