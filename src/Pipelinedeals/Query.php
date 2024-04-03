@@ -6,6 +6,8 @@ namespace Weblab\Pipelinedeals;
  *
  * @author  Weblab.nl - Thomas Marinissen
  * @package Weblab\Pipelinedeals
+ *
+ * @template T of Entity
  */
 class Query {
 
@@ -102,7 +104,7 @@ class Query {
      * Collect results from pipelinedeals for the query
      *
      * @param   array                                           The fields to return for every found entity
-     * @return  \Weblab\Pipelinedeals\Collection                The results
+     * @return  \Weblab\Pipelinedeals\Collection<T>                The results
      */
     public function get(array $attributes = []) {
         // set the attributes
@@ -135,7 +137,7 @@ class Query {
      * Set the fields to return for the entities
      *
      * @param   array                                   The fields to return for every found entity
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function select(array $attributes) {
         // set the attributes
@@ -151,7 +153,7 @@ class Query {
      * @param   string                                  The attribute the conditition is for
      * @param   mixed                                   The lower bound condition value
      * @param   mixed|null                              The uper bound condition value
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function where($attribute, $value, $value2 = null) {
         // get the class name of the entity
@@ -176,7 +178,7 @@ class Query {
      * @param   string                                  The attribute the conditition is for
      * @param   mixed                                   The lower bound condition value
      * @param   mixed|null                              The uper bound condition value
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function condition($attribute, $value, $value2 = null) {
         return $this->where($attribute, $value, $value2);
@@ -188,7 +190,7 @@ class Query {
      * @param   string                                  The attribute the conditition is for
      * @param   mixed                                   The lower bound condition value
      * @param   mixed|null                              The uper bound condition value
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function whereDateTime($attribute, $value, $value2 = null) {
         // create the base of the attribute condition
@@ -210,7 +212,7 @@ class Query {
      * Add a raw query condition to filter the results by
      *
      * @param   string                                  Raw condititon to filter the results by
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function whereRaw($condition) {
         $this->condititions[] = $condition;
@@ -223,7 +225,7 @@ class Query {
      * Alias of whereRaw
      *
      * @param   string                                  Raw condititon to filter the results by
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function conditionRaw($condition) {
         return $this->whereRaw($condition);
@@ -233,7 +235,7 @@ class Query {
      * The number of results to get. A maximum of 200 results can be returned in 1 call. The default value is 5
      *
      * @param   int                                     The number of results to get
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function take(int $value = 200) {
         // make sure the limit has a maximum value of 200;
@@ -252,7 +254,7 @@ class Query {
      * Alias of take
      *
      * @param   int                                     The number of results to get
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function limit(int $value = 200) {
         return $this->take($value);
@@ -262,7 +264,7 @@ class Query {
      * The page to get from the result set
      *
      * @param   int                                     The page to get
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function page(int $value) {
         // set the offset value
@@ -276,7 +278,7 @@ class Query {
      * Set whether the totals should be included in the query
      *
      * @param   boolean                                 Whether the totals should be included in the query or not
-     * @return  \Weblab\Pipelinedeals\Query             The instance of this, to make chaining possible
+     * @return  \Weblab\Pipelinedeals\Query<T>             The instance of this, to make chaining possible
      */
     public function totals(bool $totals = false) {
         $this->totals = $totals;

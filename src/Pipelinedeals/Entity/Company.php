@@ -8,6 +8,19 @@ namespace Weblab\Pipelinedeals\Entity;
  * entity
  *
  * @author Weblab.nl - Thomas Marinissen
+ *
+ * @implements \Weblab\Pipelinedeals\Entity<Company>
+ * @property object $owner
+ * @property int $owner_id
+ * @property string $name
+ * @property string $email
+ * @property string $phone1
+ * @property string $web
+ * @property string $address_1
+ * @property string $postal_code
+ * @property string $city
+ * @property string $state
+ * @property string $country
  */
 class Company extends \Weblab\Pipelinedeals\Entity {
 

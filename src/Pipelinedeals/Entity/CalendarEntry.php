@@ -6,11 +6,25 @@ namespace Weblab\Pipelinedeals\Entity;
  * The Pipelinesdeals wrapper class wrapping around a calendar entry from
  * Pipelinesdeals, making it possible to perform rest operations on the calendar
  * entry entity
- * 
+ *
  * @author Weblab.nl - Thomas Marinissen
+ *
+ * @implements \Weblab\Pipelinedeals\Entity<CalendarEntry>
+ *
+ * @property string $name
+ * @property string $type
+ * @property string $description
+ * @property string $association_type
+ * @property string $due_date
+ * @property string $start_time
+ * @property string $end_time
+ * @property int $association_id
+ * @property string $associated_company
+ * @property int $owner_id
+ * @property int $category_id
  */
 class CalendarEntry extends \Weblab\Pipelinedeals\Entity {
-    
+
     /**
      * The entity name
      */

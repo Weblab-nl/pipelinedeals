@@ -5,13 +5,15 @@ namespace Weblab\Pipelinedeals;
  * Collection class, to handle collections of pipelinedeals entities
  *
  * @author Weblab.nl - Thomas Marinissen
+ *
+ * @template T of Entity
  */
 class Collection implements \Iterator, \Countable, \ArrayAccess {
 
     /**
      * The query instance the result set is based on
      *
-     * @var \Weblab\Pipelinedeals\Query|null
+     * @var \Weblab\Pipelinedeals\Query<T>|null
      */
     protected $query = null;
 
@@ -46,7 +48,7 @@ class Collection implements \Iterator, \Countable, \ArrayAccess {
     /**
      * The result set
      *
-     * @param \Weblab\Pipelinedeals\Query             The query to get the results from
+     * @param \Weblab\Pipelinedeals\Query<T>             The query to get the results from
      */
     public function __construct(\Weblab\Pipelinedeals\Query $query = null) {
         // set the query
@@ -88,9 +90,7 @@ class Collection implements \Iterator, \Countable, \ArrayAccess {
     }
 
     /**
-     * Return the current result
-     *
-     * @return \stdClass
+     * @return T
      */
     public function current() {
         return $this->results[$this->currentKey];
@@ -226,7 +226,7 @@ class Collection implements \Iterator, \Countable, \ArrayAccess {
     /**
      * Get the result set of the next page
      *
-     * @return \Weblab\Pipelinedeals\Collection                 The collection of entities for the next page
+     * @return \Weblab\Pipelinedeals\Collection<T>                 The collection of entities for the next page
      */
     public function nextPage() {
         // get the current page number
@@ -250,7 +250,7 @@ class Collection implements \Iterator, \Countable, \ArrayAccess {
     /**
      * Get the result set of the previous page
      *
-     * @return \Weblab\Pipelinedeals\Collection                 The collection of entities for the previous page
+     * @return \Weblab\Pipelinedeals\Collection<T>                 The collection of entities for the previous page
      */
     public function previousPage() {
         // get the current page number
@@ -265,7 +265,7 @@ class Collection implements \Iterator, \Countable, \ArrayAccess {
     /**
      * Get the query object if set
      *
-     * @return null|\Weblab\Pipelinedeals\Query
+     * @return null|\Weblab\Pipelinedeals\Query<T>
      */
     public function query() {
         return $this->query;

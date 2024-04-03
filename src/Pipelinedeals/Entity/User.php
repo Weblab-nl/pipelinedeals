@@ -6,11 +6,13 @@ namespace Weblab\Pipelinedeals\Entity;
  * The Pipelinesdeals wrapper class wrapping around the user entity from
  * Pipelinesdeals, making it possible to perform rest operations on the user
  * entity
- * 
+ *
  * @author Weblab.nl - Thomas Marinissen
+ *
+ * @implements \Weblab\Pipelinedeals\Entity<User>
  */
 class User extends \Weblab\Pipelinedeals\Entity {
-    
+
     /**
      * The entity name
      */
@@ -32,5 +34,9 @@ class User extends \Weblab\Pipelinedeals\Entity {
         'including_inactive'    => 'boolean',
         'user_level'            => 'integer',
     ];
+
+    public function lmao() {
+        return 'lmao';
+    }
 
 }

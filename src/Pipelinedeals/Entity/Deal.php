@@ -8,6 +8,19 @@ namespace Weblab\Pipelinedeals\Entity;
  * entity
  *
  * @author Weblab.nl - Thomas Marinissen
+ *
+ * @implements \Weblab\Pipelinedeals\Entity<Deal>
+ * @property int|float $value
+ * @property object $custom_fields
+ * @property int $deal_stage_id
+ * @property int $primary_contact_id
+ * @property int $company_id
+ * @property int $source_id
+ * @property string $name
+ * @property string $probability
+ * @property string $status
+ * @property string $summary
+ * @property string $expected_close_date
  */
 class Deal extends \Weblab\Pipelinedeals\Entity {
 
